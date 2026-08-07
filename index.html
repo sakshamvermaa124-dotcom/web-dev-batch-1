@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillMe - Responsive Navigation Bar</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Sticky Responsive Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo" aria-label="SkillMe Home">
+        <span class="logo-accent">Skill</span>Me
+      </a>
+
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home" class="nav-item active">Home</a></li>
+        <li><a href="#about" class="nav-item">About</a></li>
+        <li><a href="#services" class="nav-item">Services</a></li>
+        <li><a href="#portfolio" class="nav-item">Portfolio</a></li>
+        <li><a href="#contact" class="nav-item nav-btn">Contact Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Demo Content Section (Demonstrates Sticky Navbar & Scroll Behavior) -->
+  <main class="content">
+    <section id="home" class="hero-section">
+      <div class="badge">Week 1 Task Solution</div>
+      <h1>Responsive Navigation Bar</h1>
+      <p>A clean, modern, and accessible sticky navigation bar built with semantic HTML5, CSS Flexbox, and Vanilla JavaScript.</p>
+      <div class="cta-group">
+        <a href="#about" class="btn btn-primary">Explore Features</a>
+        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+      </div>
+    </section>
+
+    <section id="about" class="demo-grid">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>Flexbox Layout</h3>
+        <p>Positions logo on the left and navigation links on the right seamlessly using CSS Flexbox.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📱</div>
+        <h3>Mobile First</h3>
+        <p>Transforms into an interactive animated hamburger menu on screens smaller than 768px without horizontal scroll.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📌</div>
+        <h3>Sticky Top Navbar</h3>
+        <p>Stays fixed at the top of the viewport when scrolling down the page with subtle backdrop blur styling.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 SkillMe Web Dev Batch 1. Open Source Contribution.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
