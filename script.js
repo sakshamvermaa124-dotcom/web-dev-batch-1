@@ -1,3 +1,8 @@
+// script.js - Responsive Card Grid Project
+// Built with Vanilla HTML, CSS Grid, and JavaScript
+
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('Responsive Card Grid initialized successfully.');
 document.addEventListener('DOMContentLoaded', () => {
   const menuToggle = document.getElementById('menu-toggle');
   const navLinks = document.getElementById('nav-links');

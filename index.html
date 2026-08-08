@@ -3,70 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SkillMe - Responsive Navigation Bar</title>
+  <title>Responsive Card Grid - SkillMe Web Dev Batch 1</title>
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Sticky Responsive Navigation Bar -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="#" class="logo" aria-label="SkillMe Home">
-        <span class="logo-accent">Skill</span>Me
-      </a>
+  <main>
+    <section class="projects">
+      <div class="container">
+        <header class="section-header">
+          <span class="badge">Portfolio Showcase</span>
+          <h1 class="section-title">My Projects</h1>
+          <p class="section-subtitle">
+            A responsive project showcase grid built cleanly with CSS Grid.
+          </p>
+        </header>
 
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-      </button>
+        <div class="grid">
 
-      <ul class="nav-links" id="nav-links">
-        <li><a href="#home" class="nav-item active">Home</a></li>
-        <li><a href="#about" class="nav-item">About</a></li>
-        <li><a href="#services" class="nav-item">Services</a></li>
-        <li><a href="#portfolio" class="nav-item">Portfolio</a></li>
-        <li><a href="#contact" class="nav-item nav-btn">Contact Us</a></li>
-      </ul>
-    </div>
-  </nav>
+          <!-- Card 1 -->
+          <article class="card">
+            <div class="card-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80"
+                   alt="Developer working on a responsive portfolio website on a laptop" loading="lazy" />
+            </div>
+            <div class="card-content">
+              <h2>Portfolio Website</h2>
+              <p>Personal developer portfolio featuring responsive layouts, dark mode toggles, and smooth scroll animations.</p>
+              <a href="#" class="card-link" aria-label="View Portfolio Website Project">View Project &rarr;</a>
+            </div>
+          </article>
 
-  <!-- Demo Content Section (Demonstrates Sticky Navbar & Scroll Behavior) -->
-  <main class="content">
-    <section id="home" class="hero-section">
-      <div class="badge">Week 1 Task Solution</div>
-      <h1>Responsive Navigation Bar</h1>
-      <p>A clean, modern, and accessible sticky navigation bar built with semantic HTML5, CSS Flexbox, and Vanilla JavaScript.</p>
-      <div class="cta-group">
-        <a href="#about" class="btn btn-primary">Explore Features</a>
-        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
-      </div>
-    </section>
+          <!-- Card 2 -->
+          <article class="card">
+            <div class="card-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&q=80"
+                   alt="Code editor showing task management web application code" loading="lazy" />
+            </div>
+            <div class="card-content">
+              <h2>Task Manager</h2>
+              <p>A full-stack productivity web app with interactive task boards, priority tagging, and automated reminders.</p>
+              <a href="#" class="card-link" aria-label="View Task Manager Project">View Project &rarr;</a>
+            </div>
+          </article>
 
-    <section id="about" class="demo-grid">
-      <div class="card">
-        <div class="card-icon">⚡</div>
-        <h3>Flexbox Layout</h3>
-        <p>Positions logo on the left and navigation links on the right seamlessly using CSS Flexbox.</p>
-      </div>
+          <!-- Card 3 -->
+          <article class="card">
+            <div class="card-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80"
+                   alt="Digital network visual representation for an AI chatbot project" loading="lazy" />
+            </div>
+            <div class="card-content">
+              <h2>AI Chatbot</h2>
+              <p>An intelligent conversational assistant interface powered by modern natural language processing models.</p>
+              <a href="#" class="card-link" aria-label="View AI Chatbot Project">View Project &rarr;</a>
+            </div>
+          </article>
 
-      <div class="card">
-        <div class="card-icon">📱</div>
-        <h3>Mobile First</h3>
-        <p>Transforms into an interactive animated hamburger menu on screens smaller than 768px without horizontal scroll.</p>
-      </div>
+          <!-- Card 4 -->
+          <article class="card">
+            <div class="card-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80"
+                   alt="Team collaborating around a table on a software dashboard" loading="lazy" />
+            </div>
+            <div class="card-content">
+              <h2>Team Dashboard</h2>
+              <p>Real-time team collaboration platform for project tracking, shared document storage, and video meetings.</p>
+              <a href="#" class="card-link" aria-label="View Team Dashboard Project">View Project &rarr;</a>
+            </div>
+          </article>
 
-      <div class="card">
-        <div class="card-icon">📌</div>
-        <h3>Sticky Top Navbar</h3>
-        <p>Stays fixed at the top of the viewport when scrolling down the page with subtle backdrop blur styling.</p>
+          <!-- Card 5 -->
+          <article class="card">
+            <div class="card-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=600&q=80"
+                   alt="E-commerce shopping cart checkout flow interface" loading="lazy" />
+            </div>
+            <div class="card-content">
+              <h2>E-Commerce Store</h2>
+              <p>Modern online retail store interface complete with product filtering, dynamic shopping cart, and quick checkout.</p>
+              <a href="#" class="card-link" aria-label="View E-Commerce Store Project">View Project &rarr;</a>
+            </div>
+          </article>
+
+          <!-- Card 6 -->
+          <article class="card">
+            <div class="card-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80"
+                   alt="Financial analytics charts and graphs dashboard on screen" loading="lazy" />
+            </div>
+            <div class="card-content">
+              <h2>Analytics Dashboard</h2>
+              <p>Interactive analytics platform visualizing key business metrics, traffic trends, and custom report charts.</p>
+              <a href="#" class="card-link" aria-label="View Analytics Dashboard Project">View Project &rarr;</a>
+            </div>
+          </article>
+
+        </div>
       </div>
     </section>
   </main>
-
-  <footer class="footer">
-    <p>&copy; 2026 SkillMe Web Dev Batch 1. Open Source Contribution.</p>
-  </footer>
 
   <script src="script.js"></script>
 </body>
