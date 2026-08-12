@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Saksham | Portfolio</title>
+
+  <!-- Google Font -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      color: #ffffff;
+      background: #0f172a;
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+      position: relative;
+
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+
+      padding: 40px 20px;
+
+      overflow: hidden;
+
+      /*
+       * Gradient background instead of
+       * plain white/black.
+       */
+      background:
+        radial-gradient(
+          circle at 20% 20%,
+          rgba(59, 130, 246, 0.25),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 80% 80%,
+          rgba(139, 92, 246, 0.25),
+          transparent 35%
+        ),
+        linear-gradient(
+          135deg,
+          #0f172a 0%,
+          #111827 50%,
+          #1e1b4b 100%
+        );
+    }
+
+
+    /* =========================
+       SUBTLE BACKGROUND PATTERN
+    ========================== */
+
+    .hero::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background-image:
+        linear-gradient(
+          rgba(255, 255, 255, 0.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.025) 1px,
+          transparent 1px
+        );
+
+      background-size: 50px 50px;
+
+      pointer-events: none;
+    }
+
+
+    /* =========================
+       CONTENT
+    ========================== */
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+
+      width: min(100%, 900px);
+    }
+
+
+    /* =========================
+       SUBTITLE
+    ========================== */
+
+    .hero-subtitle {
+      margin-bottom: 20px;
+
+      color: #60a5fa;
+
+      font-size: 1rem;
+      font-weight: 600;
+
+      letter-spacing: 3px;
+      text-transform: uppercase;
+
+      animation:
+        fadeIn 0.8s ease-out 0.1s both;
+    }
+
+
+    /* =========================
+       HEADLINE
+    ========================== */
+
+    .hero h1 {
+      margin-bottom: 25px;
+
+      font-size: clamp(
+        3rem,
+        8vw,
+        6rem
+      );
+
+      line-height: 1.05;
+
+      font-weight: 800;
+      letter-spacing: -3px;
+
+      animation:
+        slideUp 0.9s ease-out 0.2s both;
+    }
+
+    .hero h1 span {
+      background:
+        linear-gradient(
+          90deg,
+          #60a5fa,
+          #a78bfa
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      color: transparent;
+    }
+
+
+    /* =========================
+       DESCRIPTION
+    ========================== */
+
+    .hero-description {
+      width: min(100%, 650px);
+
+      margin: 0 auto 35px;
+
+      color: #cbd5e1;
+
+      font-size: 1.1rem;
+      line-height: 1.8;
+
+      animation:
+        fadeIn 0.8s ease-out 0.5s both;
+    }
+
+
+    /* =========================
+       CTA
+    ========================== */
+
+    .hero-actions {
+      display: flex;
+
+      justify-content: center;
+
+      gap: 15px;
+
+      flex-wrap: wrap;
+
+      animation:
+        slideUp 0.8s ease-out 0.7s both;
+    }
+
+    .cta {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      min-width: 160px;
+
+      padding: 14px 25px;
+
+      border-radius: 8px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #3b82f6,
+          #6366f1
+        );
+
+      color: #ffffff;
+
+      text-decoration: none;
+
+      font-size: 1rem;
+      font-weight: 600;
+
+      box-shadow:
+        0 10px 30px
+        rgba(59, 130, 246, 0.25);
+
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        filter 0.3s ease;
+    }
+
+    .cta:hover {
+      transform:
+        translateY(-4px)
+        scale(1.02);
+
+      filter: brightness(1.1);
+
+      box-shadow:
+        0 15px 40px
+        rgba(59, 130, 246, 0.4);
+    }
+
+    .cta:focus-visible {
+      outline: 3px solid #93c5fd;
+      outline-offset: 4px;
+    }
+
+
+    /* =========================
+       SECONDARY BUTTON
+    ========================== */
+
+    .cta-secondary {
+      background: rgba(255, 255, 255, 0.05);
+
+      border: 1px solid
+        rgba(255, 255, 255, 0.15);
+
+      box-shadow: none;
+
+      backdrop-filter: blur(10px);
+    }
+
+    .cta-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+
+      box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.2);
+    }
+
+
+    /* =========================
+       DECORATIVE ORB
+    ========================== */
+
+    .orb {
+      position: absolute;
+
+      width: 300px;
+      height: 300px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(59, 130, 246, 0.15),
+          transparent 70%
+        );
+
+      pointer-events: none;
+
+      animation:
+        float 6s ease-in-out infinite;
+    }
+
+    .orb-one {
+      top: 10%;
+      left: 5%;
+    }
+
+    .orb-two {
+      right: 5%;
+      bottom: 10%;
+
+      width: 250px;
+      height: 250px;
+
+      animation-delay: -3s;
+    }
+
+
+    /* =========================
+       SCROLL INDICATOR
+    ========================== */
+
+    .scroll-indicator {
+      position: absolute;
+
+      bottom: 25px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      color: #94a3b8;
+
+      font-size: 0.8rem;
+
+      animation:
+        bounce 2s ease-in-out infinite;
+    }
+
+    .scroll-indicator span {
+      display: block;
+
+      width: 20px;
+      height: 32px;
+
+      margin: 8px auto 0;
+
+      border: 2px solid #64748b;
+
+      border-radius: 20px;
+    }
+
+
+    /* =========================
+       KEYFRAME ANIMATIONS
+    ========================== */
+
+    /*
+     * Animation 1:
+     * Fade elements into view.
+     */
+    @keyframes fadeIn {
+
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+
+    }
+
+
+    /*
+     * Animation 2:
+     * Slide elements upward while fading in.
+     */
+    @keyframes slideUp {
+
+      from {
+        opacity: 0;
+
+        transform:
+          translateY(35px);
+      }
+
+      to {
+        opacity: 1;
+
+        transform:
+          translateY(0);
+      }
+
+    }
+
+
+    /*
+     * Animation 3:
+     * Floating background decoration.
+     */
+    @keyframes float {
+
+      0%,
+      100% {
+        transform:
+          translateY(0);
+      }
+
+      50% {
+        transform:
+          translateY(-25px);
+      }
+
+    }
+
+
+    /*
+     * Animation 4:
+     * Scroll indicator.
+     */
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform:
+          translateX(-50%)
+          translateY(0);
+      }
+
+      50% {
+        transform:
+          translateX(-50%)
+          translateY(8px);
+      }
+
+    }
+
+
+    /* =========================
+       REDUCED MOTION
+    ========================== */
+
+    @media (
+      prefers-reduced-motion: reduce
+    ) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 600px) {
+
+      .hero {
+        padding:
+          30px 20px;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .hero-description {
+        font-size: 1rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+
+        align-items: center;
+      }
+
+      .cta {
+        width: min(100%, 280px);
+      }
+
+      .orb {
+        width: 180px;
+        height: 180px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <main>
+
+    <section
+      class="hero"
+      id="home"
+    >
+
+      <!-- Decorative background elements -->
+
+      <div
+        class="orb orb-one"
+        aria-hidden="true"
+      ></div>
+
+      <div
+        class="orb orb-two"
+        aria-hidden="true"
+      ></div>
+
+
+      <!-- Hero content -->
+
+      <div class="hero-content">
+
+        <p class="hero-subtitle">
+          Computer Science Student
+        </p>
+
+
+        <h1>
+          Hi, I'm
+          <span>Saksham</span>.
+        </h1>
+
+
+        <p class="hero-description">
+          I build scalable software, explore
+          artificial intelligence, and turn
+          challenging ideas into practical
+          solutions.
+        </p>
+
+
+        <div class="hero-actions">
+
+          <a
+            href="#projects"
+            class="cta"
+          >
+            View My Work
+          </a>
+
+          <a
+            href="#contact"
+            class="cta cta-secondary"
+          >
+            Contact Me
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- Scroll indicator -->
+
+      <div
+        class="scroll-indicator"
+        aria-hidden="true"
+      >
+        Scroll to explore
+        <span></span>
+      </div>
+
+    </section>
+
+
+    <!-- Demo sections so the CTA has destinations -->
+
+    <section
+      id="projects"
+      style="
+        min-height: 100vh;
+        padding: 100px 20px;
+        background: #111827;
+        text-align: center;
+      "
+    >
+
+      <h2>
+        My Projects
+      </h2>
+
+      <p
+        style="
+          margin-top: 15px;
+          color: #94a3b8;
+        "
+      >
+        Your portfolio projects can go here.
+      </p>
+
+    </section>
+
+
+    <section
+      id="contact"
+      style="
+        min-height: 50vh;
+        padding: 100px 20px;
+        background: #0f172a;
+        text-align: center;
+      "
+    >
+
+      <h2>
+        Contact
+      </h2>
+
+      <p
+        style="
+          margin-top: 15px;
+          color: #94a3b8;
+        "
+      >
+        your@email.com
+      </p>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
