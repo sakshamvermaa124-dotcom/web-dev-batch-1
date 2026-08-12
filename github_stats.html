@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Stats</title>
+<style>
+  :root {
+    --bg: #14151a;
+    --panel: #1b1d24;
+    --border: #2c2f38;
+    --text: #e4e4e2;
+    --muted: #8b8d98;
+    --amber: #d99a2b;
+    --red: #e05d5d;
+    --mono: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 64px 20px;
+    margin: 0;
+  }
+
+  .controls {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .controls input {
+    flex: 1;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    padding: 10px 12px;
+    border-radius: 6px;
+  }
+
+  .controls input:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 1px;
+  }
+
+  .controls button {
+    background: var(--amber);
+    color: #14151a;
+    border: none;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .controls button:hover { opacity: 0.9; }
+
+  .card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    min-height: 180px;
+  }
+
+  /* --- loading skeleton --- */
+  .skeleton { display: flex; gap: 16px; align-items: center; }
+  .skel-block {
+    background: linear-gradient(90deg, var(--border) 25%, #363944 37%, var(--border) 63%);
+    background-size: 400% 100%;
+    animation: shimmer 1.4s ease infinite;
+    border-radius: 6px;
+  }
+  .skel-avatar { width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0; }
+  .skel-lines { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+  .skel-line { height: 12px; width: 100%; }
+  .skel-line.short { width: 60%; }
+
+  @keyframes shimmer {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+  }
+
+  /* --- error state --- */
+  .error {
+    color: var(--red);
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    height: 132px;
+  }
+
+  /* --- profile state --- */
+  .profile { display: flex; gap: 16px; }
+
+  .profile img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .profile__name {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .profile__login {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 2px 0 8px;
+  }
+
+  .profile__bio {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+    margin: 0 0 14px;
+  }
+
+  .profile__stats {
+    display: flex;
+    gap: 20px;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+
+  .stat__num {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--amber);
+  }
+
+  .stat__label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <input type="text" id="username-input" value="sakshamvermaa124-dotcom" placeholder="GitHub username" aria-label="GitHub username">
+  <button id="load-btn">Load</button>
+</div>
+
+<div class="card" id="card" role="status" aria-live="polite"></div>
+
+<script>
+  const card = document.getElementById("card");
+  const input = document.getElementById("username-input");
+  const loadBtn = document.getElementById("load-btn");
+
+  function renderLoading() {
+    card.innerHTML = `
+      <div class="skeleton">
+        <div class="skel-block skel-avatar"></div>
+        <div class="skel-lines">
+          <div class="skel-block skel-line short"></div>
+          <div class="skel-block skel-line"></div>
+          <div class="skel-block skel-line"></div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderError(message) {
+    card.innerHTML = `
+      <div class="error">
+        <strong>Couldn't load profile</strong>
+        <span>${message}</span>
+      </div>
+    `;
+  }
+
+  function renderProfile(user) {
+    card.innerHTML = `
+      <div class="profile">
+        <img src="${user.avatar_url}" alt="${user.login}'s avatar">
+        <div>
+          <p class="profile__name">${user.name || user.login}</p>
+          <p class="profile__login">@${user.login}</p>
+          ${user.bio ? `<p class="profile__bio">${user.bio}</p>` : ""}
+          <div class="profile__stats">
+            <div><div class="stat__num">${user.public_repos}</div><div class="stat__label">Repos</div></div>
+            <div><div class="stat__num">${user.followers}</div><div class="stat__label">Followers</div></div>
+            <div><div class="stat__num">${user.following}</div><div class="stat__label">Following</div></div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  async function loadProfile(username) {
+    renderLoading();
+    try {
+      const res = await fetch(`https://api.github.com/users/${username}`);
+      if (!res.ok) {
+        if (res.status === 404) {
+          throw new Error(`User "${username}" not found.`);
+        }
+        throw new Error(`GitHub API returned ${res.status}.`);
+      }
+      const user = await res.json();
+      renderProfile(user);
+    } catch (err) {
+      renderError(err.message || "Network error. Please try again.");
+    }
+  }
+
+  loadBtn.addEventListener("click", () => {
+    const username = input.value.trim();
+    if (username) loadProfile(username);
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") loadBtn.click();
+  });
+
+  // initial load
+  loadProfile(input.value.trim());
+</script>
+
+</body>
+</html>
