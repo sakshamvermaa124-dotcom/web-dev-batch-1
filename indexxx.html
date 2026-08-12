@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Portfolio Navbar</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      min-height: 200vh;
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================== */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      width: 100%;
+      background: #111827;
+      border-bottom: 1px solid #334155;
+    }
+
+    .navbar-container {
+      width: min(100% - 40px, 1200px);
+      min-height: 70px;
+      margin: 0 auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* =========================
+       LOGO
+    ========================== */
+
+    .logo {
+      color: #f8fafc;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 700;
+
+      transition:
+        color 0.3s ease;
+    }
+
+    .logo:hover {
+      color: #3b82f6;
+    }
+
+    /* =========================
+       NAV LINKS
+    ========================== */
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+
+      list-style: none;
+      gap: 30px;
+    }
+
+    .nav-menu a {
+      display: block;
+
+      color: #cbd5e1;
+      text-decoration: none;
+
+      font-size: 1rem;
+      font-weight: 500;
+
+      padding: 8px 0;
+
+      transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+      color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    /* =========================
+       HAMBURGER
+    ========================== */
+
+    .hamburger {
+      display: none;
+
+      width: 42px;
+      height: 42px;
+
+      padding: 8px;
+
+      border: none;
+      background: transparent;
+
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      display: block;
+
+      width: 100%;
+      height: 3px;
+
+      margin: 5px 0;
+
+      background: #f8fafc;
+      border-radius: 3px;
+
+      transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+    }
+
+    /* Hamburger animation when open */
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* =========================
+       DEMO CONTENT
+    ========================== */
+
+    main {
+      width: min(100% - 40px, 1000px);
+      margin: 0 auto;
+    }
+
+    section {
+      min-height: 500px;
+      padding: 100px 0;
+      border-bottom: 1px solid #334155;
+    }
+
+    section h1,
+    section h2 {
+      margin-bottom: 20px;
+    }
+
+    section p {
+      color: #94a3b8;
+      max-width: 700px;
+      line-height: 1.7;
+    }
+
+    /* =========================
+       MOBILE
+       < 768px
+    ========================== */
+
+    @media (max-width: 767px) {
+
+      .navbar-container {
+        width: min(100% - 30px, 1200px);
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .nav-menu {
+        position: absolute;
+
+        top: 70px;
+        left: 0;
+
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 0;
+
+        background: #111827;
+        border-bottom: 1px solid #334155;
+
+        /*
+         * Hidden by default.
+         */
+        max-height: 0;
+        overflow: hidden;
+
+        transition:
+          max-height 0.3s ease;
+      }
+
+      .nav-menu.active {
+        max-height: 400px;
+      }
+
+      .nav-menu li {
+        width: 100%;
+      }
+
+      .nav-menu a {
+        padding: 16px 20px;
+        width: 100%;
+
+        border-top: 1px solid #1e293b;
+      }
+
+      .nav-menu a:hover {
+        transform: none;
+        background: #1e293b;
+      }
+    }
+
+    /* =========================
+       REDUCED MOTION
+    ========================== */
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVIGATION
+  ========================== -->
+
+  <header class="navbar">
+
+    <nav
+      class="navbar-container"
+      aria-label="Main navigation"
+    >
+
+      <!-- Logo -->
+
+      <a
+        href="#home"
+        class="logo"
+      >
+        Saksham.
+      </a>
+
+
+      <!-- Hamburger -->
+
+      <button
+        type="button"
+        class="hamburger"
+        id="hamburger"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+
+      <!-- Navigation links -->
+
+      <ul
+        class="nav-menu"
+        id="nav-menu"
+      >
+
+        <li>
+          <a href="#home">
+            Home
+          </a>
+        </li>
+
+        <li>
+          <a href="#about">
+            About
+          </a>
+        </li>
+
+        <li>
+          <a href="#skills">
+            Skills
+          </a>
+        </li>
+
+        <li>
+          <a href="#projects">
+            Projects
+          </a>
+        </li>
+
+        <li>
+          <a href="#contact">
+            Contact
+          </a>
+        </li>
+
+      </ul>
+
+    </nav>
+
+  </header>
+
+
+  <!-- =========================
+       DEMO CONTENT
+  ========================== -->
+
+  <main>
+
+    <section id="home">
+
+      <h1>
+        Welcome to My Portfolio
+      </h1>
+
+      <p>
+        This section demonstrates the sticky navigation.
+        Scroll down and the navbar will remain at the top.
+      </p>
+
+    </section>
+
+
+    <section id="about">
+
+      <h2>
+        About
+      </h2>
+
+      <p>
+        This is the About section of the portfolio.
+      </p>
+
+    </section>
+
+
+    <section id="skills">
+
+      <h2>
+        Skills
+      </h2>
+
+      <p>
+        This is the Skills section.
+      </p>
+
+    </section>
+
+
+    <section id="projects">
+
+      <h2>
+        Projects
+      </h2>
+
+      <p>
+        This is the Projects section.
+      </p>
+
+    </section>
+
+
+    <section id="contact">
+
+      <h2>
+        Contact
+      </h2>
+
+      <p>
+        This is the Contact section.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    const hamburger =
+      document.getElementById("hamburger");
+
+    const navMenu =
+      document.getElementById("nav-menu");
+
+
+    /*
+     * Toggle mobile navigation.
+     */
+
+    hamburger.addEventListener("click", () => {
+
+      const isOpen =
+        navMenu.classList.toggle("active");
+
+      hamburger.classList.toggle(
+        "active",
+        isOpen
+      );
+
+      hamburger.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+      );
+
+      hamburger.setAttribute(
+        "aria-label",
+        isOpen
+          ? "Close navigation menu"
+          : "Open navigation menu"
+      );
+
+    });
+
+
+    /*
+     * Close mobile menu when a link is clicked.
+     */
+
+    const navLinks =
+      navMenu.querySelectorAll("a");
+
+    navLinks.forEach((link) => {
+
+      link.addEventListener("click", () => {
+
+        navMenu.classList.remove("active");
+
+        hamburger.classList.remove("active");
+
+        hamburger.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+        hamburger.setAttribute(
+          "aria-label",
+          "Open navigation menu"
+        );
+
+      });
+
+    });
+
+
+    /*
+     * Close mobile menu when the user
+     * presses Escape.
+     */
+
+    document.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (
+          event.key === "Escape" &&
+          navMenu.classList.contains("active")
+        ) {
+
+          navMenu.classList.remove("active");
+
+          hamburger.classList.remove("active");
+
+          hamburger.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+          hamburger.setAttribute(
+            "aria-label",
+            "Open navigation menu"
+          );
+
+          hamburger.focus();
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
