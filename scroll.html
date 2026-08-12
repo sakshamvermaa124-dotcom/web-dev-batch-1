@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll Reveal</title>
+<style>
+  :root {
+    --bg: #14151a;
+    --panel: #1b1d24;
+    --border: #2c2f38;
+    --text: #e4e4e2;
+    --muted: #8b8d98;
+    --amber: #d99a2b;
+    --mono: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    margin: 0;
+  }
+
+  section {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 8vw;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .eyebrow {
+    color: var(--amber);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+  }
+
+  h2 {
+    font-size: clamp(24px, 4vw, 36px);
+    margin: 0 0 16px;
+    max-width: 560px;
+  }
+
+  p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0;
+  }
+
+  .spacer {
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  /*
+    Base "reveal" state: hidden, offset, using opacity + transform only
+    (compositor-friendly, no layout thrashing). will-change hints the
+    browser ahead of the animation and is removed after it plays so it
+    doesn't sit around consuming a compositor layer indefinitely.
+  */
+  .reveal {
+    opacity: 0;
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal--fade {
+    transform: translateY(0);
+  }
+
+  .reveal--left {
+    transform: translateX(-40px);
+  }
+
+  .reveal--right {
+    transform: translateX(40px);
+  }
+
+  .reveal--scale {
+    transform: scale(0.85);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      transition: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<section>
+  <p class="eyebrow reveal reveal--fade">01 / Intro</p>
+  <h2 class="reveal reveal--fade">Fade-in section</h2>
+  <p class="reveal reveal--fade">This block simply fades from transparent to opaque as it enters the viewport — no positional movement, just an opacity ramp.</p>
+</section>
+
+<div class="spacer">scroll ↓</div>
+
+<section>
+  <p class="eyebrow reveal reveal--left">02 / Work</p>
+  <h2 class="reveal reveal--left">Slide-from-left section</h2>
+  <p class="reveal reveal--left">This block starts offset 40px to the left and slides into place while fading in, using a single transform + opacity transition.</p>
+</section>
+
+<div class="spacer">scroll ↓</div>
+
+<section>
+  <p class="eyebrow reveal reveal--right">03 / Approach</p>
+  <h2 class="reveal reveal--right">Slide-from-right section</h2>
+  <p class="reveal reveal--right">This block does the mirror image — offset to the right, sliding left into its resting position.</p>
+</section>
+
+<div class="spacer">scroll ↓</div>
+
+<section>
+  <p class="eyebrow reveal reveal--scale">04 / Contact</p>
+  <h2 class="reveal reveal--scale">Scale-up section</h2>
+  <p class="reveal reveal--scale">This block starts slightly scaled down (0.85) and grows to full size as it enters, giving a subtle "arriving" feel.</p>
+</section>
+
+<script>
+  const revealEls = document.querySelectorAll(".reveal");
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const el = entry.target;
+        el.style.willChange = "transform, opacity";
+        el.classList.add("is-visible");
+
+        // Animate once: stop observing this element, and drop the
+        // will-change hint after the transition finishes so the
+        // browser can release the compositor layer.
+        obs.unobserve(el);
+        el.addEventListener(
+          "transitionend",
+          () => { el.style.willChange = "auto"; },
+          { once: true }
+        );
+      });
+    },
+    {
+      threshold: 0.15,
+      rootMargin: "0px 0px -10% 0px"
+    }
+  );
+
+  revealEls.forEach((el) => observer.observe(el));
+</script>
+
+</body>
+</html>
