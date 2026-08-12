@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact</title>
+<style>
+  :root {
+    --bg: #14151a;
+    --panel: #1b1d24;
+    --border: #2c2f38;
+    --text: #e4e4e2;
+    --muted: #8b8d98;
+    --amber: #d99a2b;
+    --red: #e05d5d;
+    --green: #6bbf7b;
+    --mono: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    display: flex;
+    justify-content: center;
+    padding: 64px 20px;
+    margin: 0;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 460px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px;
+  }
+
+  .card__eyebrow {
+    color: var(--amber);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+  }
+
+  .card__title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 24px;
+  }
+
+  .field {
+    margin-bottom: 18px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    resize: vertical;
+  }
+
+  .field textarea { min-height: 100px; }
+
+  .field input:focus-visible,
+  .field textarea:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 1px;
+  }
+
+  .field[data-invalid="true"] input,
+  .field[data-invalid="true"] textarea {
+    border-color: var(--red);
+  }
+
+  .field__error {
+    display: none;
+    color: var(--red);
+    font-size: 12px;
+    margin-top: 6px;
+  }
+
+  .field[data-invalid="true"] .field__error {
+    display: block;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--amber);
+    color: #14151a;
+    border: none;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+
+  .submit-btn:hover { opacity: 0.9; }
+
+  .success {
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .success__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--green);
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin: 0 auto 16px;
+  }
+
+  .success__title {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+
+  .success__text {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0 0 20px;
+  }
+
+  .success__btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .success__btn:hover { border-color: var(--amber); color: var(--amber); }
+</style>
+</head>
+<body>
+
+<div class="card" id="card">
+  <p class="card__eyebrow">Contact</p>
+  <h2 class="card__title">Get in touch</h2>
+
+  <form id="contact-form" novalidate>
+    <div class="field" id="field-name">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" autocomplete="name">
+      <p class="field__error" id="error-name"></p>
+    </div>
+
+    <div class="field" id="field-email">
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" autocomplete="email">
+      <p class="field__error" id="error-email"></p>
+    </div>
+
+    <div class="field" id="field-subject">
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" name="subject">
+      <p class="field__error" id="error-subject"></p>
+    </div>
+
+    <div class="field" id="field-message">
+      <label for="message">Message</label>
+      <textarea id="message" name="message"></textarea>
+      <p class="field__error" id="error-message"></p>
+    </div>
+
+    <button type="submit" class="submit-btn">Send message</button>
+  </form>
+</div>
+
+<script>
+  const card = document.getElementById("card");
+  const form = document.getElementById("contact-form");
+
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const rules = {
+    name: (v) => (v.trim() ? null : "Name is required."),
+    email: (v) => {
+      if (!v.trim()) return "Email is required.";
+      if (!EMAIL_RE.test(v.trim())) return "Enter a valid email address.";
+      return null;
+    },
+    subject: (v) => (v.trim() ? null : "Subject is required."),
+    message: (v) => {
+      if (!v.trim()) return "Message is required.";
+      if (v.trim().length < 20) return "Message must be at least 20 characters.";
+      return null;
+    }
+  };
+
+  function setFieldError(name, message) {
+    const field = document.getElementById(`field-${name}`);
+    const error = document.getElementById(`error-${name}`);
+    if (message) {
+      field.setAttribute("data-invalid", "true");
+      error.textContent = message;
+    } else {
+      field.removeAttribute("data-invalid");
+      error.textContent = "";
+    }
+  }
+
+  function validateForm() {
+    let firstInvalid = null;
+    let isValid = true;
+
+    Object.keys(rules).forEach((name) => {
+      const input = form.elements[name];
+      const message = rules[name](input.value);
+      setFieldError(name, message);
+      if (message) {
+        isValid = false;
+        if (!firstInvalid) firstInvalid = input;
+      }
+    });
+
+    if (firstInvalid) firstInvalid.focus();
+    return isValid;
+  }
+
+  function renderSuccess() {
+    card.innerHTML = `
+      <div class="success">
+        <div class="success__icon">&#10003;</div>
+        <p class="success__title">Message sent</p>
+        <p class="success__text">Thanks for reaching out — I'll get back to you soon.</p>
+        <button class="success__btn" id="reset-btn">Send another message</button>
+      </div>
+    `;
+    document.getElementById("reset-btn").addEventListener("click", renderForm);
+  }
+
+  function renderForm() {
+    location.reload();
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      renderSuccess();
+    }
+  });
+</script>
+
+</body>
+</html>
